@@ -1,0 +1,41 @@
+{
+  "name": "composer",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-redux": "^5.0.7",
+    "react-ripples": "^1.1.2",
+    "react-scripts-ts": "2.16.0",
+    "redux": "^4.0.0",
+    "redux-observable": "^1.0.0",
+    "reselect": "^3.0.1",
+    "rxjs": "^6.2.2",
+    "styled-components": "^3.3.3",
+    "typesafe-actions": "^2.0.4"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom --watchAll",
+    "eject": "react-scripts-ts eject"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.1.5",
+    "@types/node": "^10.5.2",
+    "@types/react": "^16.4.6",
+    "@types/react-dom": "^16.0.6",
+    "@types/react-redux": "^6.0.4",
+    "node-sass": "^4.9.2",
+    "sass-extract": "^2.1.0",
+    "sass-extract-js": "^0.3.0",
+    "sass-extract-loader": "^1.1.0",
+    "typescript": "^2.9.2"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^!!sass-extract-loader.*$": "<rootDir>/sassExtractLoader.js"
+    }
+  }
+}
