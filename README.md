@@ -1,3 +1,3 @@
 ## React.js + TypeScript = ❤️
 
-Starter for React (+ Redux) and TypeScript
+Starter for React (+ Redux & Styled Components) and TypeScript
