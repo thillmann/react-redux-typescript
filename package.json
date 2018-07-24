@@ -1,6 +1,7 @@
 {
   "name": "react-redux-typescript",
   "version": "0.1.0",
+  "homepage": "https://hillmann.cc/react-redux-typescript",
   "private": true,
   "dependencies": {
     "react": "^16.4.1",
@@ -18,6 +19,7 @@
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
+    "postbuild": "mv build docs",
     "test": "react-scripts-ts test --env=jsdom --watchAll",
     "eject": "react-scripts-ts eject"
   },
