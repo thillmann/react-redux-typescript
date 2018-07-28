@@ -19,9 +19,6 @@ export default class Map extends React.PureComponent<IComponentProps> {
   public setRef = (element: HTMLDivElement) => (this.ref = element);
 
   public componentDidMount() {
-    // tslint:disable-next-line:no-console
-    console.warn(this.props);
-    // tslint:disable-next-line:no-unused-expression
     this.map = new mapboxgl.Map({
       container: this.ref,
       style: 'mapbox://styles/mapbox/streets-v10',

@@ -2,6 +2,8 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
+import Card from 'src/components/shared/Card';
+import Grid from 'src/components/shared/Grid';
 import Input from 'src/components/shared/Input';
 import Map from 'src/components/shared/Map';
 import { IRootState } from 'src/store';
@@ -47,12 +49,19 @@ class Home extends React.PureComponent<ComponentProps> {
         </Helmet>
         Search For:
         <Input type="text" value={searchTerm} onInput={this.onSearch} />
-        <ul>
+        <Grid>
           {searchResult.map(restaurant => (
-            <li key={restaurant.id}>{restaurant.name}</li>
+            <Card key={restaurant.id}>
+              <img
+                src={restaurant.thumb}
+                alt={restaurant.name}
+                style={{ width: '100%' }}
+              />
+              {restaurant.name}
+            </Card>
           ))}
-        </ul>
-        <Map lat={lat ? lat : 0} lon={lon ? lon : 0} />
+        </Grid>
+        <Map lat={lat} lon={lon} />
       </div>
     );
   }

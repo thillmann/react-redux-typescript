@@ -2,7 +2,7 @@ import * as React from 'react';
 import { changeTheme } from 'src/store/theme';
 import styled from 'src/styled-components';
 import AppHeader from './AppHeader';
-import Button from './shared/Button';
+import RaisedButton from './shared/RaisedButton';
 
 const AppContainer = styled.div`
   background: ${({ theme }) => theme.colors.background};
@@ -21,7 +21,7 @@ export default class AppLayout extends React.PureComponent<IComponentProps> {
       <AppContainer>
         <AppHeader>
           You are in {cityName}
-          <Button onClick={onChangeTheme}>Change Theme</Button>
+          <RaisedButton onClick={onChangeTheme}>Change Theme</RaisedButton>
         </AppHeader>
         <main>{this.props.children}</main>
       </AppContainer>

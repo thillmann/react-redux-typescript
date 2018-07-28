@@ -22,4 +22,5 @@ export interface IRestaurant {
   };
   featured_image: string;
   menu_url: string;
+  thumb: string;
 }
