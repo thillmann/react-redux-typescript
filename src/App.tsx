@@ -1,112 +1,43 @@
+import { ConnectedRouter } from 'connected-react-router';
 import * as React from 'react';
-
 import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router';
 import { bindActionCreators, Dispatch } from 'redux';
-import logo from './logo.svg';
-import { addProject, getProjects, IProject, removeProject } from './projects';
-import RaisedButton from './shared/RaisedButton';
-import { IRootState } from './store';
-import styled, { keyframes, ThemeProvider } from './styled-components';
-import { changeTheme, ITheme } from './theme';
-import { getTheme } from './theme/theme.reducer';
+import AppLayout from './components/AppLayout';
+import Home from './pages/Home';
+import { history, IRootState } from './store';
+import { ThemeProvider } from './styled-components';
+import { changeTheme, getTheme } from './theme';
 
-const AppContainer = styled.div`
-  text-align: center;
-`;
-
-const AppHeader = styled.header`
-  background-color: ${({ theme }) => theme.colors.primaryDark};
-  padding: ${({ theme }) => theme.inset.l};
-  color: white;
-`;
-
-const logoSpin = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
-
-const AppLogo = styled.img`
-  animation: ${logoSpin} infinite 20s linear;
-  height: 80px;
-`;
-
-const AppTitle = styled.h1`
-  font-size: 1.5em;
-`;
-
-const AppIntro = styled.p`
-  font-size: large;
-`;
-
-const mapStateToProps = ({ projects, theme }: IRootState) => ({
-  projects: getProjects(projects),
+const mapStateToProps = ({ theme }: IRootState) => ({
   theme: getTheme(theme)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      onAddProject: addProject,
-      onChangeTheme: changeTheme,
-      onRemoveProject: removeProject
+      onChangeTheme: changeTheme
     },
     dispatch
   );
 
-let globalId = 0;
+type ComponentProps = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
 
-interface IComponentProps {
-  onAddProject: typeof addProject;
-  onChangeTheme: typeof changeTheme;
-  onRemoveProject: typeof removeProject;
-  projects: IProject[];
-  theme: ITheme;
-}
-
-class App extends React.PureComponent<IComponentProps> {
-  public onAddProject = () => {
-    this.props.onAddProject({
-      id: '' + globalId++,
-      name: 'Some Project'
-    });
-  };
-
-  public onRemoveProject = (projectId: string) => () =>
-    this.props.onRemoveProject(projectId);
-
+class App extends React.PureComponent<ComponentProps> {
   public render() {
+    const { theme, onChangeTheme } = this.props;
     return (
-      <ThemeProvider theme={this.props.theme}>
-        <AppContainer>
-          <AppHeader>
-            <AppLogo src={logo} alt="logo" />
-            <AppTitle>Welcome to React</AppTitle>
-            <RaisedButton onClick={this.props.onChangeTheme}>
-              Change Theme
-            </RaisedButton>
-          </AppHeader>
-          <AppIntro>
-            To get started, edit <code>src/App.tsx</code> and save to reload.<br />
-          </AppIntro>
-          <RaisedButton onClick={this.onAddProject}>Add Project</RaisedButton>
-          {this.renderProjects()}
-        </AppContainer>
+      <ThemeProvider theme={theme}>
+        <AppLayout onChangeTheme={onChangeTheme}>
+          <ConnectedRouter history={history}>
+            <Switch>
+              <Route exact={true} path="/" component={Home} />
+            </Switch>
+          </ConnectedRouter>
+        </AppLayout>
       </ThemeProvider>
     );
-  }
-
-  public renderProjects() {
-    const projects = this.props.projects.map(project => (
-      <li key={project.id}>
-        {project.id} - {project.name}{' '}
-        <a onClick={this.onRemoveProject(project.id)}>Remove</a>
-      </li>
-    ));
-    return <ul>{projects}</ul>;
   }
 }
 
