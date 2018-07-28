@@ -10,20 +10,18 @@ import {
 import { IRootState, RootActions } from 'src/store';
 import { search } from 'src/utils/api';
 import { isActionOf } from 'typesafe-actions';
-// import * as Location from '../location';
+import * as Location from '../location';
 import * as actions from './restaurants.actions';
 
-// const searchLocationEpic: Epic<RootActions, RootActions, IRootState> = (
-//   action$,
-//   state$
-// ) =>
-//   action$.pipe(
-//     filter(isActionOf(Location.fetchLocation)),
-//     switchMapTo(state$),
-//     filter(state => !!state.location.cityId),
-//     map(state => state.location.cityId!),
-//     map(cityId => actions.search('', cityId))
-//   );
+const searchLocationEpic: Epic<
+  RootActions,
+  RootActions,
+  IRootState
+> = action$ =>
+  action$.pipe(
+    filter(isActionOf(Location.fetchLocationSuccess)),
+    map(({ payload: { cityId } }) => actions.search('', cityId))
+  );
 
 const searchEpic: Epic<RootActions, RootActions, IRootState> = action$ =>
   action$.pipe(
@@ -40,4 +38,4 @@ const searchEpic: Epic<RootActions, RootActions, IRootState> = action$ =>
     )
   );
 
-export const epics = combineEpics(searchEpic);
+export const epics = combineEpics(searchEpic, searchLocationEpic);

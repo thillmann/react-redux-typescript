@@ -6,6 +6,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import AppLayout from './components/AppLayout';
 import Home from './pages/Home';
 import { history, IRootState } from './store';
+import { fetchLocation } from './store/location';
 import { changeTheme, getTheme } from './store/theme';
 import { ThemeProvider } from './styled-components';
 
@@ -17,7 +18,8 @@ const mapStateToProps = ({ theme, location }: IRootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      onChangeTheme: changeTheme
+      onChangeTheme: changeTheme,
+      onFetchLocation: fetchLocation
     },
     dispatch
   );
@@ -26,6 +28,10 @@ type ComponentProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 class App extends React.PureComponent<ComponentProps> {
+  public componentDidMount() {
+    this.props.onFetchLocation();
+  }
+
   public render() {
     const { cityName, theme, onChangeTheme } = this.props;
     return (

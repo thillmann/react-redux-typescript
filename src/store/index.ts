@@ -30,8 +30,8 @@ export interface IRootState extends IRootStateWithoutRouter {
 export type RootActions = Location.Action | Restaurants.Action | Theme.Action;
 
 export const history = createBrowserHistory();
-export const rootEpic = combineEpics(Location.epics, Restaurants.epics);
-export const epicMiddleware = createEpicMiddleware();
+const rootEpic = combineEpics(Location.epics, Restaurants.epics);
+const epicMiddleware = createEpicMiddleware();
 
 const rootReducer = combineReducers<IRootStateWithoutRouter, RootActions>({
   location: Location.reducer,
@@ -50,7 +50,5 @@ function configureStore(initialState?: any): Store<IRootState, AnyAction> {
 const store = configureStore();
 
 epicMiddleware.run(rootEpic as any);
-
-store.dispatch(Location.fetchLocation());
 
 export default store;
