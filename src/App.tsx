@@ -9,7 +9,8 @@ import { history, IRootState } from './store';
 import { ThemeProvider } from './styled-components';
 import { changeTheme, getTheme } from './theme';
 
-const mapStateToProps = ({ theme }: IRootState) => ({
+const mapStateToProps = ({ theme, location }: IRootState) => ({
+  cityName: location.cityName,
   theme: getTheme(theme)
 });
 
@@ -26,10 +27,10 @@ type ComponentProps = ReturnType<typeof mapStateToProps> &
 
 class App extends React.PureComponent<ComponentProps> {
   public render() {
-    const { theme, onChangeTheme } = this.props;
+    const { cityName, theme, onChangeTheme } = this.props;
     return (
       <ThemeProvider theme={theme}>
-        <AppLayout onChangeTheme={onChangeTheme}>
+        <AppLayout cityName={cityName} onChangeTheme={onChangeTheme}>
           <ConnectedRouter history={history}>
             <Switch>
               <Route exact={true} path="/" component={Home} />

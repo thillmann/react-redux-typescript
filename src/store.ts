@@ -13,12 +13,13 @@ import {
   Store
 } from 'redux';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
-import projectReducer, { IProjectState, ProjectAction } from './projects';
-import { changeProjectEpic } from './projects/project.epic';
+import * as Location from './store/location';
+import * as Restaurants from './store/restaurants';
 import themeReducer, { Theme, ThemeAction } from './theme';
 
 interface IRootStateWithoutRouter {
-  projects: IProjectState;
+  location: Location.IState;
+  restaurants: Restaurants.IState;
   theme: Theme;
 }
 
@@ -26,14 +27,15 @@ export interface IRootState extends IRootStateWithoutRouter {
   router: RouterState;
 }
 
-export type RootActions = ProjectAction & ThemeAction;
+export type RootActions = Location.Action | Restaurants.Action | ThemeAction;
 
 export const history = createBrowserHistory();
-export const rootEpic = combineEpics(changeProjectEpic);
+export const rootEpic = combineEpics(Location.epics, Restaurants.epics);
 export const epicMiddleware = createEpicMiddleware();
 
 const rootReducer = combineReducers<IRootStateWithoutRouter, RootActions>({
-  projects: projectReducer,
+  location: Location.reducer,
+  restaurants: Restaurants.reducer,
   theme: themeReducer
 });
 
@@ -48,5 +50,7 @@ function configureStore(initialState?: any): Store<IRootState, AnyAction> {
 const store = configureStore();
 
 epicMiddleware.run(rootEpic as any);
+
+store.dispatch(Location.fetchLocation());
 
 export default store;

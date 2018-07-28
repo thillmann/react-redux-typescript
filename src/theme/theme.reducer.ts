@@ -7,7 +7,7 @@ import * as actions from './theme.actions';
 export type ThemeAction = ActionType<typeof actions>;
 
 const reducer: Reducer<Theme> = (
-  state: Theme = Theme.DARK,
+  state: Theme = Theme.LIGHT,
   action: ThemeAction
 ) => {
   switch (action.type) {
