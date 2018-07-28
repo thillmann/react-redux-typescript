@@ -10,7 +10,8 @@ const mapStateToProps = ({
   restaurants
 }: IRootState) => ({
   cityId,
-  searchResult: Restaurants.getSearchResult(restaurants)
+  searchResult: Restaurants.getSearchResult(restaurants),
+  searchTerm: restaurants.searchTerm
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
@@ -26,7 +27,7 @@ type ComponentProps = ReturnType<typeof mapStateToProps> &
 
 class Home extends React.PureComponent<ComponentProps> {
   public onSearch = (ev: any) => {
-    const { onSearch, cityId } = this.props;
+    const { cityId, onSearch } = this.props;
     const searchTerm = ev.target.value;
     if (cityId) {
       onSearch(searchTerm, cityId);
@@ -34,11 +35,11 @@ class Home extends React.PureComponent<ComponentProps> {
   };
 
   public render() {
-    const { searchResult } = this.props;
+    const { searchResult, searchTerm } = this.props;
     return (
       <div>
         Search For:
-        <Input type="text" onInput={this.onSearch} />
+        <Input type="text" value={searchTerm} onInput={this.onSearch} />
         <ul>
           {searchResult.map(restaurant => (
             <li key={restaurant.id}>{restaurant.name}</li>

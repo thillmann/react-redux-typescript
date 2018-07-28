@@ -4,11 +4,11 @@ import { ActionType, getType } from 'typesafe-actions';
 import ThemeMap, { Theme } from './theme';
 import * as actions from './theme.actions';
 
-export type ThemeAction = ActionType<typeof actions>;
+export type Action = ActionType<typeof actions>;
 
-const reducer: Reducer<Theme> = (
+export const reducer: Reducer<Theme> = (
   state: Theme = Theme.LIGHT,
-  action: ThemeAction
+  action: Action
 ) => {
   switch (action.type) {
     case getType(actions.changeTheme):
@@ -21,5 +21,3 @@ export const getTheme = createSelector(
   (state: Theme) => state,
   state => ThemeMap[state]
 );
-
-export default reducer;

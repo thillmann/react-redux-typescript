@@ -6,8 +6,8 @@ import { bindActionCreators, Dispatch } from 'redux';
 import AppLayout from './components/AppLayout';
 import Home from './pages/Home';
 import { history, IRootState } from './store';
+import { changeTheme, getTheme } from './store/theme';
 import { ThemeProvider } from './styled-components';
-import { changeTheme, getTheme } from './theme';
 
 const mapStateToProps = ({ theme, location }: IRootState) => ({
   cityName: location.cityName,

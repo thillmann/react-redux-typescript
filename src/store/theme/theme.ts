@@ -1,5 +1,5 @@
 // @ts-ignore
-import themes from '!!sass-extract-loader?{"plugins":["sass-extract-js"]}!../theme.scss';
+import themes from '!!sass-extract-loader?{"plugins":["sass-extract-js"]}!../../theme.scss';
 
 interface ISizes {
   s: string;

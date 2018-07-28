@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { changeTheme } from 'src/store/theme';
 import styled from 'src/styled-components';
-import { changeTheme } from 'src/theme';
 import AppHeader from './AppHeader';
 import Button from './shared/Button';
 
@@ -24,7 +24,6 @@ export default class AppLayout extends React.PureComponent<IComponentProps> {
           <Button onClick={onChangeTheme}>Change Theme</Button>
         </AppHeader>
         <main>{this.props.children}</main>
-        <footer>Footer</footer>
       </AppContainer>
     );
   }

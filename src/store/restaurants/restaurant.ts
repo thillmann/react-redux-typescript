@@ -12,4 +12,14 @@ export interface IRestaurant {
     country_id: number;
     locality_verbose: string;
   };
+  cuisines: string;
+  price_range: number;
+  user_rating: {
+    aggregate_rating: number;
+    rating_text: string;
+    rating_color: string;
+    votes: number;
+  };
+  featured_image: string;
+  menu_url: string;
 }
