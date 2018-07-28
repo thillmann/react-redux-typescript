@@ -51,4 +51,30 @@ export function search(searchTerm: string | undefined, cityId: number) {
   });
 }
 
+interface ICuisinesResponse {
+  cuisines: Array<{
+    cuisine: {
+      cuisine_id: number;
+      cuisine_name: string;
+    };
+  }>;
+}
+
+export function cuisines(cityIdOrLatLon: number | number[]) {
+  let cityId;
+  let latLon;
+  if (Array.isArray(cityIdOrLatLon)) {
+    latLon = cityIdOrLatLon;
+  } else {
+    cityId = cityIdOrLatLon;
+  }
+  return api.get<ICuisinesResponse>('/cuisines', {
+    params: {
+      city_id: cityId,
+      lat: latLon ? latLon[0] : undefined,
+      lon: latLon ? latLon[1] : undefined
+    }
+  });
+}
+
 export default api;

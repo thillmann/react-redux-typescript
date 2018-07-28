@@ -40,12 +40,17 @@ class App extends React.PureComponent<ComponentProps> {
           <ConnectedRouter history={history}>
             <Switch>
               <Route exact={true} path="/" component={Home} />
+              <Route render={this.renderNoMatch} />
             </Switch>
           </ConnectedRouter>
         </AppLayout>
       </ThemeProvider>
     );
   }
+
+  public renderNoMatch = () => {
+    return <div>Not found.</div>;
+  };
 }
 
 export default connect(

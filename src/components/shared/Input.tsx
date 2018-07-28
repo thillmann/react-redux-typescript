@@ -1,3 +1,9 @@
 import styled from 'src/styled-components';
 
-export default styled.input``;
+export default styled.input`
+  display: inline-flex;
+  border: 1px solid ${({ theme }) => theme.colors.grey};
+  background: none;
+  outline: none;
+  padding: ${({ theme }) => theme.inset.xs};
+`;

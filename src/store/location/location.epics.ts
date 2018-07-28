@@ -11,13 +11,19 @@ const fetchLocationEpic: Epic<RootActions, RootActions, IRootState> = action$ =>
   action$.pipe(
     filter(isActionOf(actions.fetchLocation)),
     mergeMapTo(
-      from(getLocation().then(([lat, lon]) => geocode(lat, lon))).pipe(
-        map(response => ({
-          cityId: response.data.location.city_id,
-          cityName: response.data.location.city_name
+      from(
+        getLocation().then(([lat, lon]) =>
+          geocode(lat, lon).then(response => ({ ...response.data, lat, lon }))
+        )
+      ).pipe(
+        map(data => ({
+          cityId: data.location.city_id,
+          cityName: data.location.city_name,
+          lat: data.lat,
+          lon: data.lon
         })),
-        map(({ cityId, cityName }) =>
-          actions.fetchLocationSuccess(cityId, cityName)
+        map(({ cityId, cityName, lat, lon }) =>
+          actions.fetchLocationSuccess(cityId, cityName, lat, lon)
         ),
         catchError(() => of(actions.fetchLocationError()))
       )

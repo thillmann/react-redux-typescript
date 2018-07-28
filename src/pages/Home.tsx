@@ -1,15 +1,19 @@
 import * as React from 'react';
+import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import Input from 'src/components/shared/Input';
+import Map from 'src/components/shared/Map';
 import { IRootState } from 'src/store';
 import * as Restaurants from 'src/store/restaurants';
 
 const mapStateToProps = ({
-  location: { cityId },
+  location: { cityId, lat, lon },
   restaurants
 }: IRootState) => ({
   cityId,
+  lat,
+  lon,
   searchResult: Restaurants.getSearchResult(restaurants),
   searchTerm: restaurants.searchTerm
 });
@@ -35,9 +39,12 @@ class Home extends React.PureComponent<ComponentProps> {
   };
 
   public render() {
-    const { searchResult, searchTerm } = this.props;
+    const { lat, lon, searchResult, searchTerm } = this.props;
     return (
       <div>
+        <Helmet>
+          <title>Home - Food Finder</title>
+        </Helmet>
         Search For:
         <Input type="text" value={searchTerm} onInput={this.onSearch} />
         <ul>
@@ -45,6 +52,7 @@ class Home extends React.PureComponent<ComponentProps> {
             <li key={restaurant.id}>{restaurant.name}</li>
           ))}
         </ul>
+        <Map lat={lat ? lat : 0} lon={lon ? lon : 0} />
       </div>
     );
   }

@@ -6,8 +6,10 @@
   "dependencies": {
     "axios": "^0.18.0",
     "connected-react-router": "^4.3.0",
+    "mapbox-gl": "^0.47.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-helmet": "^5.2.0",
     "react-redux": "^5.0.7",
     "react-ripples": "^1.1.2",
     "react-router": "^4.3.1",
@@ -28,9 +30,11 @@
   },
   "devDependencies": {
     "@types/jest": "^23.1.5",
+    "@types/mapbox-gl": "^0.45.2",
     "@types/node": "^10.5.2",
     "@types/react": "^16.4.6",
     "@types/react-dom": "^16.0.6",
+    "@types/react-helmet": "^5.0.6",
     "@types/react-redux": "^6.0.4",
     "@types/react-router": "^4.0.29",
     "cross-env": "^5.2.0",
