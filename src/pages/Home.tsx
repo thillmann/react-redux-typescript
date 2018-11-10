@@ -2,12 +2,16 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import Card from 'src/components/shared/Card';
+import RestaurantCard from 'src/components/RestaurantCard';
+import SearchInput from 'src/components/SearchInput';
 import Grid from 'src/components/shared/Grid';
-import Input from 'src/components/shared/Input';
-import Map from 'src/components/shared/Map';
 import { IRootState } from 'src/store';
 import * as Restaurants from 'src/store/restaurants';
+import styled from 'src/styled-components';
+
+const Container = styled.div`
+  padding: ${({ theme }) => theme.inset.m} ${({ theme }) => theme.inset.l};
+`;
 
 const mapStateToProps = ({
   location: { cityId, lat, lon },
@@ -32,37 +36,36 @@ type ComponentProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 class Home extends React.PureComponent<ComponentProps> {
-  public onSearch = (ev: any) => {
+  public onSearch = (searchTerm: string) => {
     const { cityId, onSearch } = this.props;
-    const searchTerm = ev.target.value;
     if (cityId) {
       onSearch(searchTerm, cityId);
     }
   };
 
+  public navigateToDetailView = () => {
+    // tslint:disable-next-line:no-console
+    console.warn('meh');
+  };
+
   public render() {
-    const { lat, lon, searchResult, searchTerm } = this.props;
+    const { searchResult, searchTerm } = this.props;
     return (
-      <div>
+      <Container>
         <Helmet>
           <title>Home - Food Finder</title>
         </Helmet>
-        Search For:
-        <Input type="text" value={searchTerm} onInput={this.onSearch} />
+        <SearchInput searchTerm={searchTerm} onSearch={this.onSearch} />
         <Grid>
           {searchResult.map(restaurant => (
-            <Card key={restaurant.id}>
-              <img
-                src={restaurant.thumb}
-                alt={restaurant.name}
-                style={{ width: '100%' }}
-              />
-              {restaurant.name}
-            </Card>
+            <RestaurantCard
+              key={restaurant.id}
+              restaurant={restaurant}
+              onClick={this.navigateToDetailView}
+            />
           ))}
         </Grid>
-        <Map lat={lat} lon={lon} />
-      </div>
+      </Container>
     );
   }
 }

@@ -1,5 +1,6 @@
 import {
   connectRouter,
+  LocationChangeAction,
   routerMiddleware,
   RouterState
 } from 'connected-react-router';
@@ -17,31 +18,29 @@ import * as Location from './location';
 import * as Restaurants from './restaurants';
 import * as Theme from './theme';
 
-interface IRootStateWithoutRouter {
+export interface IRootState {
   location: Location.IState;
   restaurants: Restaurants.IState;
   theme: Theme.Theme;
-}
-
-export interface IRootState extends IRootStateWithoutRouter {
   router: RouterState;
 }
 
-export type RootActions = Location.Action | Restaurants.Action | Theme.Action;
+export type RootActions = Location.Action | Restaurants.Action | Theme.Action | LocationChangeAction;
 
 export const history = createBrowserHistory();
 const rootEpic = combineEpics(Location.epics, Restaurants.epics);
 const epicMiddleware = createEpicMiddleware();
 
-const rootReducer = combineReducers<IRootStateWithoutRouter, RootActions>({
+const rootReducer = combineReducers<IRootState, RootActions>({
   location: Location.reducer,
   restaurants: Restaurants.reducer,
-  theme: Theme.reducer
+  router: connectRouter(history),
+  theme: Theme.reducer,
 });
 
 function configureStore(initialState?: any): Store<IRootState, AnyAction> {
-  return createStore(
-    connectRouter(history)<any>(rootReducer),
+  return createStore<IRootState, AnyAction, {}, {}>(
+    rootReducer,
     initialState,
     compose(applyMiddleware(routerMiddleware(history), epicMiddleware))
   );

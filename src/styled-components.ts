@@ -5,10 +5,10 @@ import { ITheme } from './store/theme';
 const {
   default: styled,
   css,
-  injectGlobal,
+  createGlobalStyle,
   keyframes,
   ThemeProvider
 } = styledComponents as ThemedStyledComponentsModule<ITheme>;
 
-export { css, injectGlobal, keyframes, ThemeProvider };
+export { css, createGlobalStyle, keyframes, ThemeProvider };
 export default styled;

@@ -16,14 +16,8 @@ const fetchLocationEpic: Epic<RootActions, RootActions, IRootState> = action$ =>
           geocode(lat, lon).then(response => ({ ...response.data, lat, lon }))
         )
       ).pipe(
-        map(data => ({
-          cityId: data.location.city_id,
-          cityName: data.location.city_name,
-          lat: data.lat,
-          lon: data.lon
-        })),
-        map(({ cityId, cityName, lat, lon }) =>
-          actions.fetchLocationSuccess(cityId, cityName, lat, lon)
+        map(({ location: { city_id, city_name }, lat, lon }) =>
+          actions.fetchLocationSuccess(city_id, city_name, lat, lon)
         ),
         catchError(() => of(actions.fetchLocationError()))
       )

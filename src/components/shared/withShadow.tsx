@@ -1,5 +1,5 @@
 import { ITheme } from 'src/store/theme';
-import { StyledComponentClass } from 'styled-components';
+import styled, { StyledComponentClass } from 'styled-components';
 
 interface IShadowProps {
   zindex?: number;
@@ -8,7 +8,7 @@ interface IShadowProps {
 export default function withShadow<P, O = P>(
   Component: StyledComponentClass<P, ITheme, O>
 ) {
-  return Component.extend<IShadowProps>`
+  return styled<P & IShadowProps, O>(Component)`
     box-shadow: ${({ theme, zindex }) =>
       zindex ? theme.boxShadow[`z${zindex}`] : theme.boxShadow.z0};
     &:active {
