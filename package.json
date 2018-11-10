@@ -4,7 +4,6 @@
   "homepage": "https://hillmann.cc/react-redux-typescript",
   "private": true,
   "dependencies": {
-    "@types/styled-components": "^4.0.3",
     "axios": "0.18.0",
     "connected-react-router": "5.0.1",
     "mapbox-gl": "0.51.0",
@@ -38,6 +37,7 @@
     "@types/react-helmet": "5.0.7",
     "@types/react-redux": "6.0.9",
     "@types/react-router": "4.4.1",
+    "@types/styled-components": "^4.0.3",
     "cross-env": "5.2.0",
     "node-sass": "4.10.0",
     "sass-extract": "2.1.0",
