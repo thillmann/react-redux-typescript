@@ -1,3 +1,4 @@
+import { push } from 'connected-react-router';
 import * as React from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
@@ -27,7 +28,8 @@ const mapStateToProps = ({
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      onSearch: Restaurants.search
+      onSearch: Restaurants.search,
+      push
     },
     dispatch
   );
@@ -43,9 +45,8 @@ class Home extends React.PureComponent<ComponentProps> {
     }
   };
 
-  public navigateToDetailView = () => {
-    // tslint:disable-next-line:no-console
-    console.warn('meh');
+  public navigateToDetailView = (id: number) => {
+    return () => this.props.push('/restaurant/' + id);
   };
 
   public render() {
@@ -61,7 +62,7 @@ class Home extends React.PureComponent<ComponentProps> {
             <RestaurantCard
               key={restaurant.id}
               restaurant={restaurant}
-              onClick={this.navigateToDetailView}
+              onClick={this.navigateToDetailView(restaurant.id)}
             />
           ))}
         </Grid>
@@ -70,7 +71,9 @@ class Home extends React.PureComponent<ComponentProps> {
   }
 }
 
-export default connect(
+const ConnectedHome = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Home);
+
+export default ConnectedHome;

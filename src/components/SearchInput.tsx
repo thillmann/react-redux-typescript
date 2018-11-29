@@ -15,6 +15,6 @@ export default class SearchInput extends React.PureComponent<IComponentProps> {
 
   public render() {
     const { searchTerm } = this.props;
-    return <Input type="text" value={searchTerm} onInput={this.onSearch} />;
+    return <Input type="text" value={searchTerm} onChange={this.onSearch} />;
   }
 }

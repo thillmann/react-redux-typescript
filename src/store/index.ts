@@ -1,6 +1,6 @@
 import {
   connectRouter,
-  LocationChangeAction,
+  RouterAction,
   routerMiddleware,
   RouterState
 } from 'connected-react-router';
@@ -25,7 +25,7 @@ export interface IRootState {
   router: RouterState;
 }
 
-export type RootActions = Location.Action | Restaurants.Action | Theme.Action | LocationChangeAction;
+export type RootActions = Location.Action | Restaurants.Action | Theme.Action | RouterAction;
 
 export const history = createBrowserHistory();
 const rootEpic = combineEpics(Location.epics, Restaurants.epics);

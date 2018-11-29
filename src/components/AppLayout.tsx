@@ -12,19 +12,20 @@ const AppContainer = styled.div`
 interface IComponentProps {
   cityName: string | null;
   onChangeTheme: typeof changeTheme;
+  children: React.ReactNode;
 }
 
-export default class AppLayout extends React.PureComponent<IComponentProps> {
-  public render() {
-    const { cityName, onChangeTheme } = this.props;
-    return (
-      <AppContainer>
-        <AppHeader>
-          You are in {cityName}
-          <RaisedButton onClick={onChangeTheme}>Change Theme</RaisedButton>
-        </AppHeader>
-        <main>{this.props.children}</main>
-      </AppContainer>
-    );
-  }
-}
+const AppLayout = ({ cityName, onChangeTheme, children }: IComponentProps) => {
+  return (
+    <AppContainer>
+      <AppHeader>
+        You are in {cityName}
+        <RaisedButton onClick={onChangeTheme}>Change Theme</RaisedButton>
+      </AppHeader>
+      <main>{children}</main>
+    </AppContainer>
+  );
+};
+
+export default AppLayout;
+
