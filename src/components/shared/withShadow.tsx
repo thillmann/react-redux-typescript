@@ -15,7 +15,7 @@ export default function withShadow<
   T extends string | number | symbol
 >(
   Component: StyledComponent<P, ITheme, O, T>
-): StyledComponent<P, ITheme, O & IShadowProps, T> {
+): StyledComponent<P, ITheme, O & IShadowProps, T | 'zindex'> {
   return styled(Component)`
     box-shadow: ${({ theme, zindex }: Props) =>
       zindex ? theme.boxShadow[`z${zindex}`] : theme.boxShadow.z0};
