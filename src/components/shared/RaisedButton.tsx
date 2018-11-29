@@ -1,4 +1,6 @@
-import Button from './Button';
-import withShadow from './withShadow';
+import Button from "./Button";
+import withShadow from "./withShadow";
 
-export default withShadow(Button);
+const RaisedButton = withShadow(Button);
+
+export default RaisedButton;
